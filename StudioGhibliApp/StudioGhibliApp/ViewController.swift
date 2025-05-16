@@ -1,17 +1,12 @@
-//
-//  ViewController.swift
-//  StudioGhibliApp
-//
-//  Created by Bianca on 16/05/25.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    let apiService = APIService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        apiService.fetchMoviesService()
     }
 
 
