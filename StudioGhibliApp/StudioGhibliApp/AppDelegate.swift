@@ -10,10 +10,20 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    var window: UIWindow?
+    
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // Cria a janela manualmente
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        // Cria sua view controller raiz
+        let rootVC = ViewController()  // ou o seu VC inicial
+        
+        window?.rootViewController = rootVC
+        window?.makeKeyAndVisible()
+        
         return true
     }
 
