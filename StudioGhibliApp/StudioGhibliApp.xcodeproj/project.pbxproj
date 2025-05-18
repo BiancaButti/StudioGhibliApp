@@ -10,6 +10,10 @@
 		000913752DD7BA9B008A70D2 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000913742DD7BA9B008A70D2 /* APIService.swift */; };
 		000913772DD7BAF2008A70D2 /* CommonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000913762DD7BAF2008A70D2 /* CommonService.swift */; };
 		000913792DD7BC8C008A70D2 /* MovieAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000913782DD7BC8C008A70D2 /* MovieAPIModel.swift */; };
+		008147CA2DDA66BE0036F671 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008147C92DDA66BE0036F671 /* MovieDetailViewController.swift */; };
+		008147CC2DDA6DB60036F671 /* MovieDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008147CB2DDA6DB60036F671 /* MovieDetailContentView.swift */; };
+		008147CF2DDA71D20036F671 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008147CE2DDA71D10036F671 /* Coordinator.swift */; };
+		008147D12DDA72340036F671 /* MovieListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008147D02DDA72340036F671 /* MovieListCoordinator.swift */; };
 		009295462DD7B26F00057884 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009295452DD7B26F00057884 /* AppDelegate.swift */; };
 		009295482DD7B26F00057884 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009295472DD7B26F00057884 /* SceneDelegate.swift */; };
 		0092954F2DD7B27100057884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0092954E2DD7B27100057884 /* Assets.xcassets */; };
@@ -24,6 +28,10 @@
 		000913742DD7BA9B008A70D2 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		000913762DD7BAF2008A70D2 /* CommonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonService.swift; sourceTree = "<group>"; };
 		000913782DD7BC8C008A70D2 /* MovieAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPIModel.swift; sourceTree = "<group>"; };
+		008147C92DDA66BE0036F671 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
+		008147CB2DDA6DB60036F671 /* MovieDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailContentView.swift; sourceTree = "<group>"; };
+		008147CE2DDA71D10036F671 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		008147D02DDA72340036F671 /* MovieListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCoordinator.swift; sourceTree = "<group>"; };
 		009295422DD7B26F00057884 /* StudioGhibliApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudioGhibliApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009295452DD7B26F00057884 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		009295472DD7B26F00057884 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,9 +67,8 @@
 		000913712DD7BA53008A70D2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				00D9ED7C2DD7D67E0071B9D6 /* MovieItemView.swift */,
-				00D9ED802DD7E3D40071B9D6 /* MovieTableViewCell.swift */,
-				00D9ED822DD8C9D80071B9D6 /* MovieListViewController.swift */,
+				008147C82DDA65A70036F671 /* Details */,
+				008147C72DDA65950036F671 /* Home */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -83,6 +90,34 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		008147C72DDA65950036F671 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				00D9ED7C2DD7D67E0071B9D6 /* MovieItemView.swift */,
+				00D9ED802DD7E3D40071B9D6 /* MovieTableViewCell.swift */,
+				00D9ED822DD8C9D80071B9D6 /* MovieListViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		008147C82DDA65A70036F671 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				008147C92DDA66BE0036F671 /* MovieDetailViewController.swift */,
+				008147CB2DDA6DB60036F671 /* MovieDetailContentView.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		008147CD2DDA71360036F671 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				008147CE2DDA71D10036F671 /* Coordinator.swift */,
+				008147D02DDA72340036F671 /* MovieListCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		009295392DD7B26E00057884 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +137,7 @@
 		009295442DD7B26F00057884 /* StudioGhibliApp */ = {
 			isa = PBXGroup;
 			children = (
+				008147CD2DDA71360036F671 /* Coordinator */,
 				000913722DD7BA5A008A70D2 /* ViewModel */,
 				000913712DD7BA53008A70D2 /* View */,
 				000913732DD7BA65008A70D2 /* Model */,
@@ -185,13 +221,17 @@
 			files = (
 				00D9ED832DD8C9D80071B9D6 /* MovieListViewController.swift in Sources */,
 				00D9ED7D2DD7D67E0071B9D6 /* MovieItemView.swift in Sources */,
+				008147CF2DDA71D20036F671 /* Coordinator.swift in Sources */,
 				00D9ED812DD7E3D40071B9D6 /* MovieTableViewCell.swift in Sources */,
 				009295462DD7B26F00057884 /* AppDelegate.swift in Sources */,
 				000913752DD7BA9B008A70D2 /* APIService.swift in Sources */,
 				000913772DD7BAF2008A70D2 /* CommonService.swift in Sources */,
 				00D9ED852DD8CD090071B9D6 /* MovieListViewModel.swift in Sources */,
 				000913792DD7BC8C008A70D2 /* MovieAPIModel.swift in Sources */,
+				008147D12DDA72340036F671 /* MovieListCoordinator.swift in Sources */,
+				008147CC2DDA6DB60036F671 /* MovieDetailContentView.swift in Sources */,
 				009295482DD7B26F00057884 /* SceneDelegate.swift in Sources */,
+				008147CA2DDA66BE0036F671 /* MovieDetailViewController.swift in Sources */,
 				00D9ED7F2DD7E1980071B9D6 /* MovieViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
