@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  StudioGhibliApp
-//
-//  Created by Bianca on 16/05/25.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -18,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-        let rootViewController = ViewController()
+        let rootViewController = MovieListViewController()
         
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
