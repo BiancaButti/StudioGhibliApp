@@ -21,7 +21,6 @@ class MovieItemView: UIView {
     private func setupViews() {
         posterImageView.contentMode = .scaleAspectFill
         posterImageView.clipsToBounds = true
-        posterImageView.layer.cornerRadius = 8
         
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         titleLabel.numberOfLines = 2
