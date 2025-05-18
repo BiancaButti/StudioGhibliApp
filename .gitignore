@@ -1,0 +1,13 @@
+# Ignore user files from Xcode
+*.xcuserdatad/
+*.xcscmblueprint
+*.xcworkspace/xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcdebugger/
+
+# Others files that normally ignore 
+build/
+DerivedData/
+*.DS_Store
+

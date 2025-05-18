@@ -16,7 +16,7 @@ final class MovieListViewModel {
                         id: $0.id,
                         title: $0.title,
                         originalTitle: $0.originalTitle,
-                        image: $0.image,
+                        image: $0.image ?? "",
                         description: $0.description,
                         producer: $0.producer,
                         releaseDate: $0.releaseDate,

@@ -43,6 +43,7 @@ class MovieItemView: UIView {
             posterImageView.topAnchor.constraint(equalTo: topAnchor),
             posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            posterImageView.heightAnchor.constraint(equalToConstant: 180),
             
             titleLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -58,5 +59,17 @@ class MovieItemView: UIView {
     func configure(_ model: MovieViewModel) {
         titleLabel.text = model.title
         yearLabel.text = model.releaseDate
+        
+        guard let url = model.imageURL else { return }
+        
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let self = self,
+                  let data = data,
+                  error == nil,
+                  let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                self.posterImageView.image = image
+            }
+        }.resume()
     }
 }
