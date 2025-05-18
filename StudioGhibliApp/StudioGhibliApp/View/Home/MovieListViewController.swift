@@ -4,6 +4,7 @@ class MovieListViewController: UIViewController {
         
     private let movieListViewModel = MovieListViewModel()
     private let tableView = UITableView()
+    weak var coordinator: MovieListCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,7 @@ class MovieListViewController: UIViewController {
         ])
         
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieItemCell")
     }
     
@@ -49,5 +51,13 @@ extension MovieListViewController: UITableViewDataSource {
         let movieViewModel = movieListViewModel.movies[indexPath.row]
         cell.configure(with: movieViewModel)
         return cell
+    }
+}
+
+extension MovieListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedMovie = movieListViewModel.movies[indexPath.row]
+        coordinator?.showMovieDetailView(for: selectedMovie)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
