@@ -1,0 +1,28 @@
+# Ignore user files from Xcode
+*.xcuserdatad/
+*.xcscmblueprint
+*.xcworkspace/xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcdebugger/
+
+# Others files that normally ignore 
+build/
+DerivedData/
+*.DS_Store
+
+# Workspace Xcode 
+*.xcworkspace/xcuserdata/
+
+# Files schemes generated automatically 
+xcshareddata/
+
+# Files of user state
+*.xcuserstate
+
+# Files system macOS
+.DS_Store
+
+# Logs
+*.log
+

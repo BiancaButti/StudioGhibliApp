@@ -2,33 +2,29 @@ import Foundation
 
 class APIService: CommonService {
     
-    func fetchMoviesService() {
+    func fetchMoviesService(completion: @escaping(Result<[MovieAPIModel], Error>) -> Void) {
         guard let url = component?.url else { return }
-        var request = URLRequest(url: url)
         
-        let dataTask = session.dataTask(with: request) { data, response, error in
+        let dataTask = session.dataTask(with: url) { data, response, error in
             if let error = error {
-                // TODO: return message error
+                completion(.failure(error))
                 return
             }
             
-            if let httpResponse = response as? HTTPURLResponse,
-               !(200...299).contains(httpResponse.statusCode) {
-                // TODO: return status code
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode),
+                  let data = data else {
+                let statusError = NSError(domain: "Invalid response", code: 0)
+                completion(.failure(statusError))
                 return
             }
             
-            guard let data = data else { return }
             do {
-                let apiData = try JSONDecoder().decode([APIModel].self, from: data)
-                for item in apiData {
-                    print(item)
-                }
+                let decoded = try JSONDecoder().decode([MovieAPIModel].self, from: data)
+                completion(.success(decoded))
             }
             catch {
-                if String(data: data, encoding: .utf8) != nil {
-                    print("JSON recebido")
-                }
+                completion(.failure(error))
             }
         }
         dataTask.resume()
