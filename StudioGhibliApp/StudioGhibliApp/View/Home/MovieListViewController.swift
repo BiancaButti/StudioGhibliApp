@@ -10,6 +10,7 @@ class MovieListViewController: UIViewController {
         return searchController.isActive && !(searchController.searchBar.text?.isEmpty ?? true)
     }
     private var isLoading = true
+    private let emptyStateView = EmptyStateView(message: "Não achamos seu filme favorito!")
     weak var coordinator: MovieListCoordinator?
 
     override func viewDidLoad() {
@@ -25,13 +26,25 @@ class MovieListViewController: UIViewController {
     // MARK: - Setup Table View
     private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(tableView)
+        view.addSubview(emptyStateView)
+        
+        emptyStateView.isHidden = true
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
+            emptyStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            emptyStateView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         tableView.dataSource = self
@@ -43,6 +56,7 @@ class MovieListViewController: UIViewController {
         movieListViewModel.onLoadingStateChange = { [weak self] isLoading in
             self?.isLoading = isLoading
             DispatchQueue.main.async {
+                self?.emptyStateView.isHidden = true
                 self?.tableView.reloadData()
             }
         }
@@ -98,12 +112,14 @@ extension MovieListViewController: UISearchResultsUpdating {
         guard let query = searchController.searchBar.text,
               !query.isEmpty else {
             filteredMovies = []
+            emptyStateView.isHidden = true
             tableView.reloadData()
             return
         }
         filteredMovies = movieListViewModel.movies.filter {
             $0.title?.lowercased().contains(query.lowercased()) ?? false
         }
+        emptyStateView.isHidden = !filteredMovies.isEmpty
         tableView.reloadData()
     }
 }
