@@ -8,17 +8,23 @@ class MovieDetailContentView: UIView {
     private let directorNameLabel = UILabel()
     private let runningTimeLabel = UILabel()
     private let descriptionLabel = UILabel()
+    private let errorLabel = UILabel()
+    private var skeletonViews: [UIView] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
         setupConstraints()
+        showSkeleton()
+        setupErrorLabel()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupViews()
         setupConstraints()
+        showSkeleton()
+        setupErrorLabel()
     }
     
     private func setupViews() {
@@ -50,6 +56,24 @@ class MovieDetailContentView: UIView {
         descriptionLabel.numberOfLines = 0
     }
     
+    private func setupErrorLabel() {
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.text = "Não foi possível exibir os dados!"
+        errorLabel.textColor = .systemRed
+        errorLabel.font = .boldSystemFont(ofSize: 20)
+        errorLabel.textAlignment = .center
+        errorLabel.numberOfLines = 0
+        errorLabel.isHidden = true
+        addSubview(errorLabel)
+        
+        NSLayoutConstraint.activate([
+            errorLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            errorLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            errorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+        ])
+    }
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             posterImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
@@ -76,7 +100,45 @@ class MovieDetailContentView: UIView {
         ])
     }
     
-    func configure(with model: MovieViewModel) {
+    func showSkeleton() {
+        let skeletonColor = UIColor.systemGray5
+        
+        [posterImageView, titleLabel, releaseDateLabel,
+         directorNameLabel, runningTimeLabel, descriptionLabel].forEach { view in
+            let skeleton = UIView()
+            skeleton.translatesAutoresizingMaskIntoConstraints = false
+            skeleton.backgroundColor = skeletonColor
+            skeleton.layer.cornerRadius = 6
+            skeleton.clipsToBounds = true
+            addSubview(skeleton)
+            skeletonViews.append(skeleton)
+            
+            NSLayoutConstraint.activate([
+                skeleton.topAnchor.constraint(equalTo: view.topAnchor),
+                skeleton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                skeleton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                skeleton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        }
+    }
+    
+    func hideSkeleton() {
+        skeletonViews.forEach { $0.removeFromSuperview() }
+        skeletonViews.removeAll()
+    }
+    
+    func configure(with model: MovieViewModel?) {
+        guard let model = model else {
+            showErrorMessage()
+            return
+        }
+        
+        errorLabel.isHidden = true
+        [posterImageView, titleLabel, releaseDateLabel,
+         directorNameLabel, runningTimeLabel, descriptionLabel].forEach {
+            $0.isHidden = false
+        }
+        
         titleLabel.text = model.title
         releaseDateLabel.text = model.releaseDate
         runningTimeLabel.text = model.runningTime
@@ -89,9 +151,26 @@ class MovieDetailContentView: UIView {
                    let image = UIImage(data: data) {
                     DispatchQueue.main.async {
                         self.posterImageView.image = image
+                        self.hideSkeleton()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.hideSkeleton()
                     }
                 }
             }
+        } else {
+            hideSkeleton()
+        }
+    }
+    
+    func showErrorMessage() {
+        errorLabel.isHidden = false
+        hideSkeleton()
+        
+        [posterImageView, titleLabel, releaseDateLabel,
+         directorNameLabel, runningTimeLabel, descriptionLabel].forEach {
+            $0.isHidden = true
         }
     }
 }

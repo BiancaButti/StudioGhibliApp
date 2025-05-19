@@ -7,10 +7,10 @@ final class MovieListViewModel {
     
     var onMoviesUpdated: (() -> Void)?
     var onLoadingStateChange: ((Bool) -> Void)?
+    var onError:((String) -> Void)?
     
     func fetchMovies() {
         onLoadingStateChange?(true)
-        
         apiService.fetchMoviesService { [weak self] result in
             DispatchQueue.main.async {
                 self?.onLoadingStateChange?(false)
@@ -30,8 +30,8 @@ final class MovieListViewModel {
                             people: $0.people)
                     }
                     self?.onMoviesUpdated?()
-                case .failure(let error):
-                    print("Error to fetch movies:", error.localizedDescription)
+                case .failure(_):
+                    self?.onError?("Occur an error when loading all movies. Try again")
                 }
             }
         }
