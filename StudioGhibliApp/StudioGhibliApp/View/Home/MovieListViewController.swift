@@ -10,13 +10,14 @@ class MovieListViewController: UIViewController {
         return searchController.isActive && !(searchController.searchBar.text?.isEmpty ?? true)
     }
     private var isLoading = true
-    private let emptyStateView = EmptyStateView(message: "Não achamos seu filme favorito!")
+    private let emptyStateView = EmptyStateView(message: "")
+    private var stateManager: StateViewManager!
+    
     weak var coordinator: MovieListCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        filteredMovies = []
         setupSearchController()
         setupTableView()
         bindViewModel()
@@ -37,10 +38,7 @@ class MovieListViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -50,18 +48,40 @@ class MovieListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieItemCell")
+        
+        stateManager = StateViewManager(tableView: tableView, emptyStateView: emptyStateView)
+        stateManager.onRetry = { [weak self] in
+            self?.stateManager.apply(state: .loading)
+            self?.movieListViewModel.fetchMovies()
+        }
     }
     
     private func bindViewModel() {
         movieListViewModel.onLoadingStateChange = { [weak self] isLoading in
-            self?.isLoading = isLoading
             DispatchQueue.main.async {
-                self?.emptyStateView.isHidden = true
-                self?.tableView.reloadData()
+                self?.stateManager.apply(state: isLoading ? .loading : .content)
+            }
+            self?.isLoading = isLoading
+        }
+        
+        movieListViewModel.onMoviesUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                if self.movieListViewModel.movies.isEmpty {
+                    self.stateManager.apply(state: .empty(message: "Nenhum filme encontrado!"))
+                } else {
+                    self.stateManager.apply(state: .content)
+                }
+            }
+        }
+        
+        movieListViewModel.onError = { [weak self] message in
+            DispatchQueue.main.async {
+                self?.stateManager.apply(state: .error(message: message))
             }
         }
     }
-    
+
     // MARK: - Setup Search Controller
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
@@ -75,25 +95,35 @@ class MovieListViewController: UIViewController {
 
 extension MovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isLoading {
+        switch stateManager.currentState {
+        case .loading:
             return 6
+        case .content:
+            return isFiltering ? filteredMovies.count : movieListViewModel.movies.count
+        case .empty(message: _), .error(message: _):
+            return 0
         }
-        return isFiltering ? filteredMovies.count : movieListViewModel.movies.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieItemCell", for: indexPath) as? MovieTableViewCell else {
             return UITableViewCell()
         }
-        if isLoading {
+        
+        switch stateManager.currentState {
+        case .loading:
             cell.showPlaceholder()
             return cell
+        case .content:
+            let movieViewModel = isFiltering
+            ? filteredMovies[indexPath.row]
+            : movieListViewModel.movies[indexPath.row]
+            cell.configure(with: movieViewModel)
+            return cell
+        case .empty(message: _), .error(message: _):
+            return UITableViewCell()
         }
-        let movieViewModel = isFiltering
-        ? filteredMovies[indexPath.row]
-        : movieListViewModel.movies[indexPath.row]
-        cell.configure(with: movieViewModel)
-        return cell
     }
 }
 
@@ -119,7 +149,11 @@ extension MovieListViewController: UISearchResultsUpdating {
         filteredMovies = movieListViewModel.movies.filter {
             $0.title?.lowercased().contains(query.lowercased()) ?? false
         }
-        emptyStateView.isHidden = !filteredMovies.isEmpty
+        if filteredMovies.isEmpty {
+            stateManager.apply(state: .empty(message: "Não achamos seu filme favorito!"))
+        } else {
+            stateManager.apply(state: .content)
+        }
         tableView.reloadData()
     }
 }
