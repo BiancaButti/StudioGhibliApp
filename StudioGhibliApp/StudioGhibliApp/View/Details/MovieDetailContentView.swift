@@ -8,17 +8,20 @@ class MovieDetailContentView: UIView {
     private let directorNameLabel = UILabel()
     private let runningTimeLabel = UILabel()
     private let descriptionLabel = UILabel()
+    private var skeletonViews: [UIView] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
         setupConstraints()
+        showSkeleton()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupViews()
         setupConstraints()
+        showSkeleton()
     }
     
     private func setupViews() {
@@ -76,6 +79,33 @@ class MovieDetailContentView: UIView {
         ])
     }
     
+    private func showSkeleton() {
+        let skeletonColor = UIColor.systemGray5
+        
+        [posterImageView, titleLabel, releaseDateLabel,
+         directorNameLabel, runningTimeLabel, descriptionLabel].forEach { view in
+            let skeleton = UIView()
+            skeleton.translatesAutoresizingMaskIntoConstraints = false
+            skeleton.backgroundColor = skeletonColor
+            skeleton.layer.cornerRadius = 6
+            skeleton.clipsToBounds = true
+            addSubview(skeleton)
+            skeletonViews.append(skeleton)
+            
+            NSLayoutConstraint.activate([
+                skeleton.topAnchor.constraint(equalTo: view.topAnchor),
+                skeleton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                skeleton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                skeleton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        }
+    }
+    
+    private func hideSkeleton() {
+        skeletonViews.forEach { $0.removeFromSuperview() }
+        skeletonViews.removeAll()
+    }
+    
     func configure(with model: MovieViewModel) {
         titleLabel.text = model.title
         releaseDateLabel.text = model.releaseDate
@@ -89,9 +119,16 @@ class MovieDetailContentView: UIView {
                    let image = UIImage(data: data) {
                     DispatchQueue.main.async {
                         self.posterImageView.image = image
+                        self.hideSkeleton()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.hideSkeleton()
                     }
                 }
             }
+        } else {
+            hideSkeleton()
         }
     }
 }
