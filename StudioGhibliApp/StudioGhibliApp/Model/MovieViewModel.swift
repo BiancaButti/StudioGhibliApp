@@ -12,25 +12,16 @@ struct MovieViewModel {
     let ratingScore: String?
     let people: [String]?
     
-    init(id: String? = nil,
-         title: String? = nil,
-         originalTitle: String? = nil,
-         image: String,
-         description: String? = nil,
-         producer: String? = nil,
-         releaseDate: String? = nil,
-         runningTime: String? = nil,
-         ratingScore: String? = nil,
-         people: [String]? = []) {
-        self.id = id
-        self.title = title
-        self.originalTitle = originalTitle
-        self.imageURL = URL(string: image)
-        self.description = description
-        self.producer = producer
-        self.releaseDate = releaseDate
-        self.runningTime = runningTime
-        self.ratingScore = ratingScore
-        self.people = people
+    init(from apiModel: MovieAPIModel) {
+        self.id = apiModel.id
+        self.title = apiModel.title
+        self.originalTitle = apiModel.originalTitle
+        self.imageURL = apiModel.image.flatMap { URL(string: $0) }
+        self.description = apiModel.description
+        self.producer = apiModel.producer
+        self.releaseDate = apiModel.releaseDate
+        self.runningTime = apiModel.runningTime
+        self.ratingScore = apiModel.ratingScore
+        self.people = apiModel.people
     }
 }

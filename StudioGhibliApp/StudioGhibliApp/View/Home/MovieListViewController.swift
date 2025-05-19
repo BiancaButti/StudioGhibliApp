@@ -21,7 +21,7 @@ class MovieListViewController: UIViewController {
         setupSearchController()
         setupTableView()
         bindViewModel()
-        movieListViewModel.fetchMovies()
+        movieListViewModel.fetchListMovies()
     }
 
     // MARK: - Setup Table View
@@ -52,7 +52,7 @@ class MovieListViewController: UIViewController {
         stateManager = StateViewManager(tableView: tableView, emptyStateView: emptyStateView)
         stateManager.onRetry = { [weak self] in
             self?.stateManager.apply(state: .loading)
-            self?.movieListViewModel.fetchMovies()
+            self?.movieListViewModel.fetchListMovies()
         }
     }
     

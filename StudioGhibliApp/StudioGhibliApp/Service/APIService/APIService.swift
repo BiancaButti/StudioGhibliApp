@@ -2,7 +2,7 @@ import Foundation
 
 class APIService: CommonService {
     
-    func fetchMoviesService(completion: @escaping(Result<[MovieAPIModel], Error>) -> Void) {
+    func fetchMovies(completion: @escaping(Result<[MovieAPIModel], Error>) -> Void) {
         guard let url = component?.url else { return }
         
         let dataTask = session.dataTask(with: url) { data, response, error in

@@ -22,6 +22,8 @@
 		009295482DD7B26F00057884 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009295472DD7B26F00057884 /* SceneDelegate.swift */; };
 		0092954F2DD7B27100057884 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0092954E2DD7B27100057884 /* Assets.xcassets */; };
 		00AC567C2DDAB086005400C2 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AC567B2DDAB086005400C2 /* UIView+Extension.swift */; };
+		00BAB5DA2DDB89CE007D3884 /* JSONCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAB5D92DDB89CE007D3884 /* JSONCache.swift */; };
+		00BAB5DC2DDBEC44007D3884 /* MovieDetailCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BAB5DB2DDBEC44007D3884 /* MovieDetailCache.swift */; };
 		00D9ED7D2DD7D67E0071B9D6 /* MovieItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED7C2DD7D67E0071B9D6 /* MovieItemView.swift */; };
 		00D9ED7F2DD7E1980071B9D6 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED7E2DD7E1980071B9D6 /* MovieViewModel.swift */; };
 		00D9ED812DD7E3D40071B9D6 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED802DD7E3D40071B9D6 /* MovieTableViewCell.swift */; };
@@ -47,6 +49,8 @@
 		0092954E2DD7B27100057884 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		009295532DD7B27100057884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00AC567B2DDAB086005400C2 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		00BAB5D92DDB89CE007D3884 /* JSONCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCache.swift; sourceTree = "<group>"; };
+		00BAB5DB2DDBEC44007D3884 /* MovieDetailCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailCache.swift; sourceTree = "<group>"; };
 		00D9ED7C2DD7D67E0071B9D6 /* MovieItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieItemView.swift; sourceTree = "<group>"; };
 		00D9ED7E2DD7E1980071B9D6 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		00D9ED802DD7E3D40071B9D6 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
@@ -68,7 +72,8 @@
 		000913702DD7BA2B008A70D2 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				000913742DD7BA9B008A70D2 /* APIService.swift */,
+				00BAB5D82DDB89B6007D3884 /* JSONCache */,
+				00BAB5D72DDB89AB007D3884 /* APIService */,
 				000913762DD7BAF2008A70D2 /* CommonService.swift */,
 			);
 			path = Service;
@@ -181,6 +186,23 @@
 			path = StudioGhibliApp;
 			sourceTree = "<group>";
 		};
+		00BAB5D72DDB89AB007D3884 /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				000913742DD7BA9B008A70D2 /* APIService.swift */,
+			);
+			path = APIService;
+			sourceTree = "<group>";
+		};
+		00BAB5D82DDB89B6007D3884 /* JSONCache */ = {
+			isa = PBXGroup;
+			children = (
+				00BAB5D92DDB89CE007D3884 /* JSONCache.swift */,
+				00BAB5DB2DDBEC44007D3884 /* MovieDetailCache.swift */,
+			);
+			path = JSONCache;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -262,9 +284,11 @@
 				00D9ED852DD8CD090071B9D6 /* MovieListViewModel.swift in Sources */,
 				000913792DD7BC8C008A70D2 /* MovieAPIModel.swift in Sources */,
 				008B51362DDAB4BD0023EA6D /* EmptyStateView.swift in Sources */,
+				00BAB5DA2DDB89CE007D3884 /* JSONCache.swift in Sources */,
 				008147D12DDA72340036F671 /* MovieListCoordinator.swift in Sources */,
 				008147CC2DDA6DB60036F671 /* MovieDetailContentView.swift in Sources */,
 				009295482DD7B26F00057884 /* SceneDelegate.swift in Sources */,
+				00BAB5DC2DDBEC44007D3884 /* MovieDetailCache.swift in Sources */,
 				008147CA2DDA66BE0036F671 /* MovieDetailViewController.swift in Sources */,
 				007903632DDB650600515AB5 /* DetailStateViewManager.swift in Sources */,
 				008B51392DDABA3D0023EA6D /* ViewState.swift in Sources */,
