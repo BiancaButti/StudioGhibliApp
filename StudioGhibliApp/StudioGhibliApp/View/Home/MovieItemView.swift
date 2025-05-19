@@ -21,12 +21,14 @@ class MovieItemView: UIView {
     private func setupViews() {
         posterImageView.contentMode = .scaleAspectFill
         posterImageView.clipsToBounds = true
+        posterImageView.layer.cornerRadius = 4
         
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 1
         
         yearLabel.font = UIFont.systemFont(ofSize: 12)
         yearLabel.textColor = .darkGray
+        yearLabel.numberOfLines = 1
         
         posterImageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -56,10 +58,29 @@ class MovieItemView: UIView {
     }
     
     func configure(_ model: MovieViewModel) {
+        removeShimmer(from: posterImageView)
+        removeShimmer(from: titleLabel)
+        removeShimmer(from: yearLabel)
+        
+        titleLabel.textColor = .label
+        titleLabel.backgroundColor = .clear
+        titleLabel.layer.cornerRadius = 0
+        titleLabel.layer.masksToBounds = false
+        
+        yearLabel.textColor = .secondaryLabel
+        yearLabel.backgroundColor = .clear
+        yearLabel.layer.cornerRadius = 0
+        yearLabel.layer.masksToBounds = false
+        
+        posterImageView.backgroundColor = .clear
+        
         titleLabel.text = model.title
         yearLabel.text = model.releaseDate
         
-        guard let url = model.imageURL else { return }
+        guard let url = model.imageURL else {
+            posterImageView.image = nil
+            return
+        }
         
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let self = self,
@@ -70,5 +91,25 @@ class MovieItemView: UIView {
                 self.posterImageView.image = image
             }
         }.resume()
+    }
+    
+    func showPlaceholder() {
+        posterImageView.image = nil
+        posterImageView.backgroundColor = .systemGray3
+        applyShimmer(to: posterImageView)
+        
+        titleLabel.text = "      "
+        titleLabel.backgroundColor = .systemGray5
+        titleLabel.layer.cornerRadius = 4
+        titleLabel.layer.masksToBounds = true
+        titleLabel.textColor = .clear
+        applyShimmer(to: titleLabel)
+        
+        yearLabel.text = "   "
+        yearLabel.backgroundColor = .systemGray5
+        yearLabel.layer.cornerRadius = 4
+        yearLabel.layer.masksToBounds = true
+        yearLabel.textColor = .clear
+        applyShimmer(to: yearLabel)
     }
 }

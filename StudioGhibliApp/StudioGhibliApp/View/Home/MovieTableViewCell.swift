@@ -28,4 +28,8 @@ class MovieTableViewCell: UITableViewCell {
     func configure(with model: MovieViewModel) {
         movieItemView.configure(model)
     }
+    
+    func showPlaceholder() {
+        movieItemView.showPlaceholder()
+    }
 }

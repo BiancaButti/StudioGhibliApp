@@ -9,6 +9,7 @@ class MovieListViewController: UIViewController {
     private var isFiltering: Bool {
         return searchController.isActive && !(searchController.searchBar.text?.isEmpty ?? true)
     }
+    private var isLoading = true
     weak var coordinator: MovieListCoordinator?
 
     override func viewDidLoad() {
@@ -28,8 +29,8 @@ class MovieListViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
@@ -39,7 +40,8 @@ class MovieListViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        movieListViewModel.onMoviesUpdated = { [weak self] in
+        movieListViewModel.onLoadingStateChange = { [weak self] isLoading in
+            self?.isLoading = isLoading
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -59,12 +61,19 @@ class MovieListViewController: UIViewController {
 
 extension MovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isLoading {
+            return 6
+        }
         return isFiltering ? filteredMovies.count : movieListViewModel.movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieItemCell", for: indexPath) as? MovieTableViewCell else {
             return UITableViewCell()
+        }
+        if isLoading {
+            cell.showPlaceholder()
+            return cell
         }
         let movieViewModel = isFiltering
         ? filteredMovies[indexPath.row]
