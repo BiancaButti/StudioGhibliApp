@@ -1,6 +1,6 @@
 import Foundation
 
-struct MovieAPIModel: Decodable {
+struct MovieAPIModel: Codable {
     let id: String?
     let title: String?
     let originalTitle: String?
