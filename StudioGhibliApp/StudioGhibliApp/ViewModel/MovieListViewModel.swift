@@ -3,9 +3,9 @@ import Foundation
 final class MovieListViewModel {
     
     private let apiService = APIService()
-    private var movieCache: [MovieViewModel]?
-    private(set) var movies: [MovieViewModel] = []
-    var movie: MovieViewModel?
+    private var movieCache: [MovieViewData]?
+    private(set) var movies: [MovieViewData] = []
+    var movie: MovieViewData?
     
     var onMoviesUpdated: (() -> Void)?
     var onLoadingStateChange: ((Bool) -> Void)?
@@ -22,7 +22,7 @@ final class MovieListViewModel {
         
         if let cachedAPIModels: [MovieAPIModel] = JSONCache.shared.load([MovieAPIModel].self) {
             print("usando cache do disco")
-            let viewModels = cachedAPIModels.map { MovieViewModel(from: $0) }
+            let viewModels = cachedAPIModels.map { MovieViewData(from: $0) }
             movieCache = viewModels
             movies = viewModels
             onMoviesUpdated?()
@@ -38,7 +38,7 @@ final class MovieListViewModel {
                 case .success(let apiMovies):
                     print("dados recebidos da api")
                     let viewModels = apiMovies.map {
-                        MovieViewModel(from: $0)
+                        MovieViewData(from: $0)
                     }
                     self?.movieCache = viewModels
                     self?.movies = viewModels
@@ -65,7 +65,7 @@ final class MovieListViewModel {
     
     func loadMovie(withId id: String) {
         if let model = MovieDetailCache.shared.load(for: id) {
-            self.movie = MovieViewModel(from: model)
+            self.movie = MovieViewData(from: model)
             self.onMoviesUpdated?()
         } else {
             self.onError?("Movie not found/")

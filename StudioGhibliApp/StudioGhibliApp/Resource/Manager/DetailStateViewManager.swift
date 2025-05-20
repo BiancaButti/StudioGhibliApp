@@ -18,7 +18,7 @@ final class DetailStateViewManager {
         }
     }
     
-    func apply(state: ViewState, model: MovieViewModel? = nil) {
+    func apply(state: ViewState, model: MovieViewData? = nil) {
         currentState = state
         
         guard let contentView = contentView,

@@ -5,7 +5,7 @@ class MovieListViewController: UIViewController {
     private let tableView = UITableView()
     private let searchController = UISearchController()
     private let movieListViewModel = MovieListViewModel()
-    private var filteredMovies: [MovieViewModel] = []
+    private var filteredMovies: [MovieViewData] = []
     private var isFiltering: Bool {
         return searchController.isActive && !(searchController.searchBar.text?.isEmpty ?? true)
     }

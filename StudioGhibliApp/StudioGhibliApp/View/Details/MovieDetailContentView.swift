@@ -127,7 +127,7 @@ class MovieDetailContentView: UIView {
         skeletonViews.removeAll()
     }
     
-    func configure(with model: MovieViewModel?) {
+    func configure(with model: MovieViewData?) {
         guard let model = model else {
             showErrorMessage()
             return

@@ -1,6 +1,6 @@
 import Foundation
 
-struct MovieViewModel {
+struct MovieViewData {
     let id: String?
     let title: String?
     let originalTitle: String?

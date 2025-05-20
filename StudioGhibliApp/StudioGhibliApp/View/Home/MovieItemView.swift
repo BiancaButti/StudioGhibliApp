@@ -57,7 +57,7 @@ class MovieItemView: UIView {
         ])
     }
     
-    func configure(_ model: MovieViewModel) {
+    func configure(_ model: MovieViewData) {
         removeShimmer(from: posterImageView)
         removeShimmer(from: titleLabel)
         removeShimmer(from: yearLabel)

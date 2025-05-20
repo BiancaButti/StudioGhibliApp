@@ -50,7 +50,7 @@ class MovieDetailViewController: UIViewController {
         }
     }
     
-    func configure(with model: MovieViewModel?) {
+    func configure(with model: MovieViewData?) {
         stateManager.apply(state: .loading)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {

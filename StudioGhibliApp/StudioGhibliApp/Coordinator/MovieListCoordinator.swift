@@ -13,7 +13,7 @@ final class MovieListCoordinator: Coordinator {
         navigationController.pushViewController(movieListViewController, animated: true)
     }
     
-    func showMovieDetailView(for movie: MovieViewModel) {
+    func showMovieDetailView(for movie: MovieViewData) {
         let detailViewController = MovieDetailViewController()
         detailViewController.configure(with: movie)
         navigationController.pushViewController(detailViewController, animated: true)
