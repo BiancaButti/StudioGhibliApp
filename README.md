@@ -7,14 +7,13 @@ Aplicativo que faz a exibição de uma lista de filmes do Studio Ghibli e tela d
 
 
 
-## 📱 Ambiente de Desenvolvimento
+## 📱 Tecnologia
 
 ![xcode](https://img.shields.io/badge/Xcode-14.2-blue?style=for-the-badge&logo=xcode&logoColor=white)
 
 ![Simulador](https://img.shields.io/badge/Simulator-iPhone%2014%20%7C%20iOS%2016.2-lightgrey?style=for-the-badge&logo=apple&logoColor=black)
   
 ![swift](https://img.shields.io/badge/Swift-FA7343?style=for-the-badge&logo=swift&logoColor=white)
-
 
 ![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 
@@ -35,8 +34,9 @@ Para isso, foi utilizado os componentes:
 - `StateViewManager`: gerencia qual visual deve ser exibido com base no estado atual.
 - `ÈmptyStateView`: exibe mensagens para estados vazios ou de erro.
 - `MovieDetailContentView`: exibe o conteúdo quando os dados são carregados com sucesso.
+- `AppCoordinator`/`Coordinator`: responsável pela navegação entre telas
 
-Além disso, foi implementado um **cache local** para evitar chamdas desnecessárias e melhorar performance da aplicação.
+Além disso, foi implementado um **cache local** para evitar chamadas desnecessárias e melhorar performance da aplicação.
 
 
 
@@ -52,7 +52,14 @@ Mesmo com o projeto concluído, todas as tarefas e melhorias foram documentadas 
 Essa prática foi adotada para manter o controle do progresso e registrar etapas do desenvolvimento de forma clara e organizada.
 
 
+## Demonstração 
+
+![StudioGhibliApp](https://github.com/user-attachments/assets/937a6771-9325-4bf5-8e94-ff36f419a502)
+
 
 ## 🚀 Como rodar o projeto
-1. Clone este [repositório](https://github.com/BiancaButti/StudioGhibliApp.git). 
+1. Clone este [repositório](https://github.com/BiancaButti/StudioGhibliApp.git).
+2. Verificar se possui o Xcode e buildar o projeto
+
+Obs.: Não foram inseridos libs externas. 
 
