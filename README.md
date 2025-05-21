@@ -47,7 +47,7 @@ Foi incluído testes unitários para garantir o funcionamento correto da lógica
 
 ## 📌 Organização e Issues
 
-Mesmo com o projeto concluído, todas as tarefas e melhorias foram documentadas via [Issues do GitHub](https://github.com/BiancaButti/StudioGhibliApp/issues?q=is%3Aissue+state%3Aclosed), que já estão todas fechadas.
+Mesmo com o projeto concluído, todas as tarefas e melhorias foram documentadas via [Issues do GitHub](https://github.com/BiancaButti/StudioGhibliApp/issues?q=is%3Aissue+state%3Aclosed) e [Pull Requests](https://github.com/BiancaButti/StudioGhibliApp/pulls?q=is%3Apr+is%3Aclosed), que já estão todas fechadas.
 
 Essa prática foi adotada para manter o controle do progresso e registrar etapas do desenvolvimento de forma clara e organizada.
 
