@@ -5,13 +5,6 @@ extension JSONCache: CacheProtocol {}
 class JSONCache {
     static let shared = JSONCache()
     
-    private var fileURL: URL {
-        FileManager.default
-            .urls(for: .cachesDirectory, in: .userDomainMask)
-            .first!
-            .appendingPathComponent("cachedItems.json")
-    }
-    
     func save<T: Encodable>(_ items: T) {
         let encoder = JSONEncoder()
         do {
@@ -40,3 +33,14 @@ class JSONCache {
         }
     }
 }
+
+#if DEBUG
+extension JSONCache {
+    var fileURL: URL {
+        FileManager.default
+            .urls(for: .cachesDirectory, in: .userDomainMask)
+            .first!
+            .appendingPathComponent("cachedItems.json")
+    }
+}
+#endif

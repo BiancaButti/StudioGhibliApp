@@ -34,7 +34,23 @@
 		00D9ED812DD7E3D40071B9D6 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED802DD7E3D40071B9D6 /* MovieTableViewCell.swift */; };
 		00D9ED832DD8C9D80071B9D6 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED822DD8C9D80071B9D6 /* MovieListViewController.swift */; };
 		00D9ED852DD8CD090071B9D6 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED842DD8CD090071B9D6 /* MovieListViewModel.swift */; };
+		00EF067B2DDDDC0900ECFC77 /* MovieListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0046D8BC2DDDDA0A000BE6FB /* MovieListViewModelTests.swift */; };
+		00EF067E2DDDDDC500ECFC77 /* MockAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EF067D2DDDDDC500ECFC77 /* MockAPIService.swift */; };
+		00EF06802DDDE15D00ECFC77 /* MockCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EF067F2DDDE15D00ECFC77 /* MockCache.swift */; };
+		00EF06822DDDE1E000ECFC77 /* MockDetailCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EF06812DDDE1E000ECFC77 /* MockDetailCache.swift */; };
+		00EF06842DDDF17300ECFC77 /* MovieDetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EF06832DDDF17300ECFC77 /* MovieDetailViewControllerTests.swift */; };
+		00EF06872DDE046300ECFC77 /* JSONCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EF06862DDE046300ECFC77 /* JSONCacheTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00EF06762DDDDBCC00ECFC77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0092953A2DD7B26E00057884 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 009295412DD7B26E00057884;
+			remoteInfo = StudioGhibliApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0002A1652DDC15570096AB57 /* APIServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceProtocol.swift; sourceTree = "<group>"; };
@@ -43,6 +59,7 @@
 		000913742DD7BA9B008A70D2 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		000913762DD7BAF2008A70D2 /* CommonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonService.swift; sourceTree = "<group>"; };
 		000913782DD7BC8C008A70D2 /* MovieAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPIModel.swift; sourceTree = "<group>"; };
+		0046D8BC2DDDDA0A000BE6FB /* MovieListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModelTests.swift; sourceTree = "<group>"; };
 		008147C92DDA66BE0036F671 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		008147CB2DDA6DB60036F671 /* MovieDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailContentView.swift; sourceTree = "<group>"; };
 		008147CE2DDA71D10036F671 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -66,10 +83,23 @@
 		00D9ED802DD7E3D40071B9D6 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		00D9ED822DD8C9D80071B9D6 /* MovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
 		00D9ED842DD8CD090071B9D6 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
+		00EF06722DDDDBCC00ECFC77 /* StudioGhibliAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudioGhibliAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00EF067D2DDDDDC500ECFC77 /* MockAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIService.swift; sourceTree = "<group>"; };
+		00EF067F2DDDE15D00ECFC77 /* MockCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCache.swift; sourceTree = "<group>"; };
+		00EF06812DDDE1E000ECFC77 /* MockDetailCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDetailCache.swift; sourceTree = "<group>"; };
+		00EF06832DDDF17300ECFC77 /* MovieDetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewControllerTests.swift; sourceTree = "<group>"; };
+		00EF06862DDE046300ECFC77 /* JSONCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCacheTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0092953F2DD7B26E00057884 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00EF066F2DDDDBCC00ECFC77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -114,6 +144,15 @@
 				00D9ED7E2DD7E1980071B9D6 /* MovieViewData.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0046D8BB2DDDD9DD000BE6FB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0046D8BC2DDDDA0A000BE6FB /* MovieListViewModelTests.swift */,
+				00EF06832DDDF17300ECFC77 /* MovieDetailViewControllerTests.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		008147C72DDA65950036F671 /* Home */ = {
@@ -166,7 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				009295442DD7B26F00057884 /* StudioGhibliApp */,
-				009E41CF2DDC042A00ED2F02 /* Tests */,
+				00EF06732DDDDBCC00ECFC77 /* StudioGhibliAppTests */,
 				009295452DD7B26F00057884 /* AppDelegate.swift */,
 				009295472DD7B26F00057884 /* SceneDelegate.swift */,
 				0092954E2DD7B27100057884 /* Assets.xcassets */,
@@ -179,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				009295422DD7B26F00057884 /* StudioGhibliApp.app */,
+				00EF06722DDDDBCC00ECFC77 /* StudioGhibliAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,6 +250,9 @@
 		009E41CF2DDC042A00ED2F02 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				00EF06852DDE045200ECFC77 /* Service */,
+				00EF067C2DDDDDA900ECFC77 /* Mocks */,
+				0046D8BB2DDDD9DD000BE6FB /* ViewModel */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -250,6 +293,32 @@
 			path = JSONCache;
 			sourceTree = "<group>";
 		};
+		00EF06732DDDDBCC00ECFC77 /* StudioGhibliAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				009E41CF2DDC042A00ED2F02 /* Tests */,
+			);
+			path = StudioGhibliAppTests;
+			sourceTree = "<group>";
+		};
+		00EF067C2DDDDDA900ECFC77 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				00EF067D2DDDDDC500ECFC77 /* MockAPIService.swift */,
+				00EF067F2DDDE15D00ECFC77 /* MockCache.swift */,
+				00EF06812DDDE1E000ECFC77 /* MockDetailCache.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		00EF06852DDE045200ECFC77 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				00EF06862DDE046300ECFC77 /* JSONCacheTests.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -270,6 +339,24 @@
 			productReference = 009295422DD7B26F00057884 /* StudioGhibliApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		00EF06712DDDDBCC00ECFC77 /* StudioGhibliAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00EF067A2DDDDBCC00ECFC77 /* Build configuration list for PBXNativeTarget "StudioGhibliAppTests" */;
+			buildPhases = (
+				00EF066E2DDDDBCC00ECFC77 /* Sources */,
+				00EF066F2DDDDBCC00ECFC77 /* Frameworks */,
+				00EF06702DDDDBCC00ECFC77 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00EF06772DDDDBCC00ECFC77 /* PBXTargetDependency */,
+			);
+			name = StudioGhibliAppTests;
+			productName = StudioGhibliAppTests;
+			productReference = 00EF06722DDDDBCC00ECFC77 /* StudioGhibliAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -282,6 +369,10 @@
 				TargetAttributes = {
 					009295412DD7B26E00057884 = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					00EF06712DDDDBCC00ECFC77 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 009295412DD7B26E00057884;
 					};
 				};
 			};
@@ -299,6 +390,7 @@
 			projectRoot = "";
 			targets = (
 				009295412DD7B26E00057884 /* StudioGhibliApp */,
+				00EF06712DDDDBCC00ECFC77 /* StudioGhibliAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -309,6 +401,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0092954F2DD7B27100057884 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00EF06702DDDDBCC00ECFC77 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,7 +447,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		00EF066E2DDDDBCC00ECFC77 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00EF06872DDE046300ECFC77 /* JSONCacheTests.swift in Sources */,
+				00EF06842DDDF17300ECFC77 /* MovieDetailViewControllerTests.swift in Sources */,
+				00EF06802DDDE15D00ECFC77 /* MockCache.swift in Sources */,
+				00EF06822DDDE1E000ECFC77 /* MockDetailCache.swift in Sources */,
+				00EF067E2DDDDDC500ECFC77 /* MockAPIService.swift in Sources */,
+				00EF067B2DDDDC0900ECFC77 /* MovieListViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00EF06772DDDDBCC00ECFC77 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 009295412DD7B26E00057884 /* StudioGhibliApp */;
+			targetProxy = 00EF06762DDDDBCC00ECFC77 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		009295542DD7B27100057884 /* Debug */ = {
@@ -529,6 +649,40 @@
 			};
 			name = Release;
 		};
+		00EF06782DDDDBCC00ECFC77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = biancabutti.StudioGhibliAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StudioGhibliApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StudioGhibliApp";
+			};
+			name = Debug;
+		};
+		00EF06792DDDDBCC00ECFC77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = biancabutti.StudioGhibliAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StudioGhibliApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StudioGhibliApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -546,6 +700,15 @@
 			buildConfigurations = (
 				009295572DD7B27100057884 /* Debug */,
 				009295582DD7B27100057884 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00EF067A2DDDDBCC00ECFC77 /* Build configuration list for PBXNativeTarget "StudioGhibliAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00EF06782DDDDBCC00ECFC77 /* Debug */,
+				00EF06792DDDDBCC00ECFC77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
