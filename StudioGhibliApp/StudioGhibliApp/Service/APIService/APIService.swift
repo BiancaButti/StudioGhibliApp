@@ -1,9 +1,17 @@
 import Foundation
 
-class APIService: CommonService {
+class APIService: CommonService, APIServiceProtocol {
+    
+    override init() {
+        super.init()
+        component = URLComponents(string: "https://ghibliapi.vercel.app/films/")
+    }
     
     func fetchMovies(completion: @escaping(Result<[MovieAPIModel], Error>) -> Void) {
-        guard let url = component?.url else { return }
+        guard let url = component?.url else {
+            print("URL inválida")
+            return
+        }
         
         let dataTask = session.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -14,7 +22,7 @@ class APIService: CommonService {
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode),
                   let data = data else {
-                let statusError = NSError(domain: "Invalid response", code: 0)
+                let statusError = NSError(domain: "Response inválido", code: 0)
                 completion(.failure(statusError))
                 return
             }

@@ -2,73 +2,105 @@ import Foundation
 
 final class MovieListViewModel {
     
-    private let apiService = APIService()
-    private var movieCache: [MovieViewData]?
-    private(set) var movies: [MovieViewData] = []
-    var movie: MovieViewData?
+    // MARK: - Dependencies
+    private let apiService: APIServiceProtocol
+    private let jsonCache: CacheProtocol
+    private let detailCache: DetailCacheProtocol
     
+    // MARK: - State
+    private(set) var movies: [MovieViewData] = []
+    private var inMemoryCache: [MovieViewData]?
+    var selectedMovie: MovieViewData?
+    
+    // MARK: - Bindings
     var onMoviesUpdated: (() -> Void)?
+    var onMovieLoaded: ((String) -> Void)?
     var onLoadingStateChange: ((Bool) -> Void)?
     var onError: ((String) -> Void)?
-    var onMovieLoaded: ((String) -> Void)?
     
+    init(apiService: APIServiceProtocol = APIService(),
+         jsonCache: CacheProtocol = JSONCache.shared,
+         detailCache: DetailCacheProtocol = MovieDetailCache.shared) {
+        self.apiService = apiService
+        self.jsonCache = jsonCache
+        self.detailCache = detailCache
+    }
+    
+    // MARK: - public methods
     func fetchListMovies() {
-        if let cached = movieCache {
-            print("usando cache em memória")
-            movies = cached
-            onMoviesUpdated?()
+        if let cached = inMemoryCache {
+            updateMovies(cached)
             return
         }
         
-        if let cachedAPIModels: [MovieAPIModel] = JSONCache.shared.load([MovieAPIModel].self) {
-            print("usando cache do disco")
+        if let cachedAPIModels: [MovieAPIModel] = jsonCache.load([MovieAPIModel].self) {
             let viewModels = cachedAPIModels.map { MovieViewData(from: $0) }
-            movieCache = viewModels
-            movies = viewModels
-            onMoviesUpdated?()
+            inMemoryCache = viewModels
+            updateMovies(viewModels)
+            cacheDetails(cachedAPIModels)
             return
         }
         
-        print("buscando da api")
         onLoadingStateChange?(true)
+
         apiService.fetchMovies{ [weak self] result in
             DispatchQueue.main.async {
                 self?.onLoadingStateChange?(false)
+                
                 switch result {
                 case .success(let apiMovies):
-                    print("dados recebidos da api")
-                    let viewModels = apiMovies.map {
-                        MovieViewData(from: $0)
-                    }
-                    self?.movieCache = viewModels
-                    self?.movies = viewModels
-                    JSONCache.shared.save(apiMovies)
+                    let viewModels = apiMovies.map { MovieViewData(from: $0) }
+                    self?.inMemoryCache = viewModels
+                    self?.updateMovies(viewModels)
                     
-                    for movie in apiMovies {
-                        if let id = movie.id {
-                            MovieDetailCache.shared.save(movie, for: id)
-                        }
+                    if !apiMovies.isEmpty {
+                        self?.jsonCache.save(apiMovies)
+                        self?.cacheDetails(apiMovies)
                     }
-                    self?.onMoviesUpdated?()
                 case .failure(_):
-                    print("erro na api")
-                    self?.onError?("Occur an error when loading all movies. Try again")
+                    if let cacheAPIModels: [MovieAPIModel] = self?.jsonCache.load([MovieAPIModel].self),
+                       !cacheAPIModels.isEmpty {
+                        let viewModels = cacheAPIModels.map { MovieViewData(from: $0) }
+                        self?.inMemoryCache = viewModels
+                        self?.updateMovies(viewModels)
+                        self?.cacheDetails(cacheAPIModels)
+                    } else {
+                        self?.onError?("Ocorreu um erro ao carregar os filmes. Tente novamente.")
+                    }
                 }
             }
         }
     }
     
     func clearCache() {
-        movieCache = nil
+        inMemoryCache = nil
         JSONCache.shared.clearCache()
     }
     
     func loadMovie(withId id: String) {
-        if let model = MovieDetailCache.shared.load(for: id) {
-            self.movie = MovieViewData(from: model)
-            self.onMoviesUpdated?()
-        } else {
-            self.onError?("Movie not found/")
+        guard let model = detailCache.load(for: id) else {
+            onError?("Filme não encontrado!")
+            return
         }
+        selectedMovie = MovieViewData(from: model)
+        onMoviesUpdated?()
+    }
+    
+    // MARK: - private methods
+    private func updateMovies(_ viewModels: [MovieViewData]) {
+        self.movies = viewModels
+        onMoviesUpdated?()
+    }
+    
+    private func cacheDetails(_ models: [MovieAPIModel]) {
+        models.forEach {
+            if let id = $0.id {
+                detailCache.save($0, for: id)
+            }
+        }
+    }
+    
+    private func mapToViewData(_ models: [MovieAPIModel]) -> [MovieViewData] {
+        return models.map { MovieViewData(from: $0) }
     }
 }

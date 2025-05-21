@@ -18,6 +18,7 @@ class MovieItemView: UIView {
         setupConstraints()
     }
     
+    // MARK: - private methods
     private func setupViews() {
         posterImageView.contentMode = .scaleAspectFill
         posterImageView.clipsToBounds = true
@@ -57,6 +58,7 @@ class MovieItemView: UIView {
         ])
     }
     
+    // MARK: - public methods
     func configure(_ model: MovieViewData) {
         removeShimmer(from: posterImageView)
         removeShimmer(from: titleLabel)

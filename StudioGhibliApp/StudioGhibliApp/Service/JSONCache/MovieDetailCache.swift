@@ -1,5 +1,7 @@
 import Foundation
 
+extension MovieDetailCache: DetailCacheProtocol {}
+
 class MovieDetailCache {
     static let shared = MovieDetailCache()
     

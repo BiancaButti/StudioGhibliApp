@@ -5,26 +5,64 @@ class MovieDetailViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = MovieDetailContentView()
     private let emptyStateView = EmptyStateView(message: "")
-    private lazy var stateManager = DetailStateViewManager(
-        contentView: contentView, emptyStateView: emptyStateView
+    private var lastModel: MovieViewData?
+    private var shouldFailFirstTime = true
+    private lazy var stateManager = GenericStateViewManager<MovieDetailContentView>(
+        contentView: contentView,
+        emptyStateView: emptyStateView
     )
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        setupConstraint()
+        setupHierarchy()
+        setupConstraints()
         setupRetryAction()
     }
     
-    private func setupConstraint() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    // MARK: - public method
+    func configure(with model: MovieViewData?) {
+        if let model = model {
+            lastModel = model
+        }
+
+        stateManager.apply(state: .loading)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            if self.shouldFailFirstTime {
+                self.shouldFailFirstTime = false
+                self.stateManager.apply(state: .error(message: "Não foi possível exibir os dados do filme!"))
+                return
+            }
+
+            guard let model = self.lastModel else {
+                self.stateManager.apply(state: .error(message: "Filme inválido!"))
+                return
+            }
+            self.stateManager.apply(state: .content, model: model)
+        }
+    }
+
+    
+    // MARK: - private methods
+    private func setupRetryAction() {
+        stateManager.onRetry = { [weak self] in
+            guard let self = self else { return }
+            self.configure(with: self.lastModel)
+        }
+    }
+    
+    private func setupHierarchy() {
+        
+        [scrollView, emptyStateView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        view.addSubview(emptyStateView)
-        
+    }
+    
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -43,22 +81,5 @@ class MovieDetailViewController: UIViewController {
             emptyStateView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
-    private func setupRetryAction() {
-        stateManager.onRetry = { [weak self] in
-            //TODO: make action
-        }
-    }
-    
-    func configure(with model: MovieViewData?) {
-        stateManager.apply(state: .loading)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            if let model {
-                self.stateManager.apply(state: .content, model: model)
-            } else {
-                self.stateManager.apply(state: .error(message: "Não foi possível exibir os dados."))
-            }
-        }
-    }
 }

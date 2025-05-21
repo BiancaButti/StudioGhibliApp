@@ -27,6 +27,7 @@ class MovieDetailContentView: UIView {
         setupErrorLabel()
     }
     
+    // MARK: - private methods
     private func setupViews() {
         [posterImageView, titleLabel, releaseDateLabel,
          directorNameLabel, runningTimeLabel, descriptionLabel].forEach {
@@ -100,6 +101,7 @@ class MovieDetailContentView: UIView {
         ])
     }
     
+    // MARK: - public methods
     func showSkeleton() {
         let skeletonColor = UIColor.systemGray5
         
