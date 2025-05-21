@@ -25,7 +25,7 @@ class MovieTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with model: MovieViewModel) {
+    func configure(with model: MovieViewData) {
         movieItemView.configure(model)
     }
     

@@ -27,6 +27,7 @@ class MovieDetailContentView: UIView {
         setupErrorLabel()
     }
     
+    // MARK: - private methods
     private func setupViews() {
         [posterImageView, titleLabel, releaseDateLabel,
          directorNameLabel, runningTimeLabel, descriptionLabel].forEach {
@@ -100,6 +101,7 @@ class MovieDetailContentView: UIView {
         ])
     }
     
+    // MARK: - public methods
     func showSkeleton() {
         let skeletonColor = UIColor.systemGray5
         
@@ -127,7 +129,7 @@ class MovieDetailContentView: UIView {
         skeletonViews.removeAll()
     }
     
-    func configure(with model: MovieViewModel?) {
+    func configure(with model: MovieViewData?) {
         guard let model = model else {
             showErrorMessage()
             return
