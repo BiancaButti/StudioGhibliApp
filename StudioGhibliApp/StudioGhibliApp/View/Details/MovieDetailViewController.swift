@@ -67,7 +67,7 @@ class MovieDetailViewController: UIViewController {
         stateManager.apply(state: .loading)
 
         guard let model = self.lastModel else {
-            self.stateManager.apply(state: .error(message: NSLocalizedString("failure_invalid_movie", comment: "")))
+            self.stateManager.apply(state: .error(message: NSLocalizedString("failure_not_exhibit_movie", comment: "")))
             return
         }
         self.stateManager.apply(state: .content, model: model)

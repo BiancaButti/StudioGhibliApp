@@ -12,6 +12,7 @@ class HomeMovieListViewController: UIViewController {
     private var isLoading = true
     private let emptyStateView = EmptyStateView(message: "")
     private var stateManager: GenericStateViewManager<UITableView>!
+    private var searchWasActive: Bool = false
     
     weak var coordinator: AppCoordinator?
 
@@ -28,6 +29,10 @@ class HomeMovieListViewController: UIViewController {
         setupSearchController()
         bindViewModel()
         viewModel.fetchListMovies()
+        
+        searchController.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
     }
 
     // MARK: - private methods
@@ -91,7 +96,6 @@ class HomeMovieListViewController: UIViewController {
 
     // MARK: - Setup Search Controller
     private func setupSearchController() {
-        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = NSLocalizedString("search_movie_search_bar", comment: "")
         searchController.searchBar.searchTextField.backgroundColor = .systemGray6
@@ -150,23 +154,54 @@ extension HomeMovieListViewController: UITableViewDelegate {
 
 extension HomeMovieListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text,
-              !query.isEmpty else {
+        guard let query = searchController.searchBar.text else { return }
+
+        if query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             filteredMovies = []
-            emptyStateView.isHidden = true
             tableView.reloadData()
+            
+            let isEmpty = viewModel.movies.isEmpty
+            stateManager.apply(state: isEmpty
+                               ? .empty(message: NSLocalizedString("failure_movie_not_found", comment: ""))
+                               : .content)
             return
         }
+
         filteredMovies = viewModel.movies.filter {
             $0.title?.lowercased().contains(query.lowercased()) ?? false
         }
+
         if filteredMovies.isEmpty {
             stateManager.apply(state: .empty(
-                message: NSLocalizedString("failure_dont_found_movie",
-                                           comment: "")))
+                message: NSLocalizedString("failure_dont_found_movie", comment: "")))
         } else {
             stateManager.apply(state: .content)
         }
+
         tableView.reloadData()
     }
 }
+
+
+extension HomeMovieListViewController: UISearchControllerDelegate {
+    func willPresentSearchController(_ searchController: UISearchController) {
+        searchWasActive = true
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        if searchWasActive {
+            filteredMovies = []
+            emptyStateView.isHidden = true
+            tableView.reloadData()
+            
+            let isEmpty = viewModel.movies.isEmpty
+            stateManager.apply(state: isEmpty
+                               ? .empty(message: NSLocalizedString("failure_movie_not_found",
+                                                                   comment: ""))
+                               : .content)
+            searchWasActive = false
+        }
+    }
+}
+
+extension HomeMovieListViewController: UISearchBarDelegate {}
