@@ -54,5 +54,5 @@ Essa prática foi adotada para manter o controle do progresso e registrar etapas
 
 
 ## 🚀 Como rodar o projeto
-1. Clone este repositório. 
+1. Clone este [repositório](https://github.com/BiancaButti/StudioGhibliApp.git). 
 
