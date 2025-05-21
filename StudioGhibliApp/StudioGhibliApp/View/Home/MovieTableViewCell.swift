@@ -6,6 +6,7 @@ class MovieTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupConstraints()
         setupLayout()
     }
     
@@ -13,7 +14,8 @@ class MovieTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupLayout() {
+    // MARK: - private methods
+    private func setupConstraints() {
         movieItemView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(movieItemView)
         
@@ -25,6 +27,17 @@ class MovieTableViewCell: UITableViewCell {
         ])
     }
     
+    private func setupLayout() {
+        backgroundColor = .systemBackground
+        layer.cornerRadius = 12
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.05
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowRadius = 4
+        layer.masksToBounds = false
+    }
+    
+    // MARK: - public methods
     func configure(with model: MovieViewData) {
         movieItemView.configure(model)
     }

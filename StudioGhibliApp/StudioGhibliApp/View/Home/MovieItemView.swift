@@ -14,11 +14,38 @@ class MovieItemView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupViews()
+        
         setupConstraints()
+        setupViews()
     }
     
     // MARK: - private methods
+    private func setupConstraints() {
+        posterImageView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        yearLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(posterImageView)
+        addSubview(titleLabel)
+        addSubview(yearLabel)
+        
+        NSLayoutConstraint.activate([
+            posterImageView.topAnchor.constraint(equalTo: topAnchor),
+            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            posterImageView.heightAnchor.constraint(equalToConstant: 180),
+            
+            titleLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            
+            yearLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            yearLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            yearLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            yearLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+        ])
+    }
+    
     private func setupViews() {
         posterImageView.contentMode = .scaleAspectFill
         posterImageView.clipsToBounds = true
@@ -30,36 +57,11 @@ class MovieItemView: UIView {
         yearLabel.font = UIFont.systemFont(ofSize: 12)
         yearLabel.textColor = .darkGray
         yearLabel.numberOfLines = 1
-        
-        posterImageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        yearLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(posterImageView)
-        addSubview(titleLabel)
-        addSubview(yearLabel)
-    }
-    
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            posterImageView.topAnchor.constraint(equalTo: topAnchor),
-            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            posterImageView.heightAnchor.constraint(equalToConstant: 180),
-            
-            titleLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            
-            yearLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            yearLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            yearLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            yearLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
-        ])
     }
     
     // MARK: - public methods
     func configure(_ model: MovieViewData) {
+        // Skeleton before show data
         removeShimmer(from: posterImageView)
         removeShimmer(from: titleLabel)
         removeShimmer(from: yearLabel)

@@ -1,0 +1,24 @@
+/* UIView+Extension */
+"key_path" = "locations";
+"for_key" = "shimmer";
+
+/* Error */
+"failure_fetch_movies" = "Ocorreu um erro ao carregar os filmes. Tente novamente.";
+"failure_movie_not_found_fetch_movies" = "Filme não encontrado!";
+"failure_not_exhibit_movie" = "Não foi possível exibir os dados do filme!";
+"failure_invalid_movie" = "Filme inválido!";
+"failure_not_possible_exhibit_data" = "Não foi possível exibir os dados!";
+"failure_movie_not_found" = "Nenhum filme encontrado!";
+"failure_dont_found_movie" = "Não encontramos o seu filme!";
+"failure_error_save_cache" = "Erro ao salvar o JSON no cache";
+"failure_error_clean_cache" = "Erro ao limpar o cache";
+"failure_invalid_response" = "Response inválido";
+
+/* Splash Screen */
+"title_label_splash_screen" =  "スタジオジブリ作品 \n STUDIO GHIBLI App";
+
+/* Common */
+"try_again" = "Tente Novamente";
+"cell_identifier" = "MovieItemCell";
+"search_movie_search_bar" = "Qual filme está procurando?";
+

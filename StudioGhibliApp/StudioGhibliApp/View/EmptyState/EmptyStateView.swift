@@ -58,11 +58,17 @@ final class EmptyStateView: UIView {
         messageLabel.textColor = .secondaryLabel
         messageLabel.textAlignment = .center
         messageLabel.numberOfLines = 0
-        messageLabel.font = .systemFont(ofSize: 16, weight: .medium)
+        messageLabel.font = .systemFont(ofSize: 16,
+                                        weight: .medium)
         
-        actionButton.setTitle("Tente Novamente", for: .normal)
-        actionButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-        actionButton.addTarget(self, action: #selector(didTapRetry), for: .touchUpInside)
+        actionButton.setTitle(NSLocalizedString("try_again",
+                                                comment: ""),
+                              for: .normal)
+        actionButton.titleLabel?.font = .systemFont(ofSize: 16,
+                                                    weight: .semibold)
+        actionButton.addTarget(self,
+                               action: #selector(didTapRetry),
+                               for: .touchUpInside)
         actionButton.isHidden = true
     }
     

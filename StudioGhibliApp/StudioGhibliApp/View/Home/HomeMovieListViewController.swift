@@ -1,6 +1,6 @@
 import UIKit
 
-class MovieListViewController: UIViewController {
+class HomeMovieListViewController: UIViewController {
         
     private let tableView = UITableView()
     private let searchController = UISearchController()
@@ -12,8 +12,9 @@ class MovieListViewController: UIViewController {
     private var isLoading = true
     private let emptyStateView = EmptyStateView(message: "")
     private var stateManager: GenericStateViewManager<UITableView>!
+    private var searchWasActive: Bool = false
     
-    weak var coordinator: MovieListCoordinator?
+    weak var coordinator: AppCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +24,18 @@ class MovieListViewController: UIViewController {
         stateManager.onRetry = { [weak self] in
             self?.viewModel.fetchListMovies()
         }
-        setupSearchController()
+        
         setupTableView()
+        setupSearchController()
         bindViewModel()
         viewModel.fetchListMovies()
+        
+        searchController.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
     }
 
-    // MARK: - Setup Table View
+    // MARK: - private methods
     private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +58,12 @@ class MovieListViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieItemCell")
+        tableView.register(MovieTableViewCell.self,
+                           forCellReuseIdentifier: NSLocalizedString("cell_identifier",
+                                                                     comment: ""))
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 220
     }
     
     private func bindViewModel() {
@@ -67,7 +78,9 @@ class MovieListViewController: UIViewController {
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 if self.viewModel.movies.isEmpty {
-                    self.stateManager.apply(state: .empty(message: "Nenhum filme encontrado!"))
+                    self.stateManager.apply(state: .empty(
+                        message: NSLocalizedString("failure_movie_not_found",
+                                                   comment: "")))
                 } else {
                     self.stateManager.apply(state: .content)
                 }
@@ -83,16 +96,19 @@ class MovieListViewController: UIViewController {
 
     // MARK: - Setup Search Controller
     private func setupSearchController() {
-        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Qual filme está procurando?"
+        searchController.searchBar.placeholder = NSLocalizedString("search_movie_search_bar", comment: "")
+        searchController.searchBar.searchTextField.backgroundColor = .systemGray6
+        searchController.searchBar.searchTextField.clipsToBounds = true
+        searchController.searchBar.tintColor = .label
+        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
     }
 }
 
-extension MovieListViewController: UITableViewDataSource {
+extension HomeMovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch stateManager.currentState {
         case .loading:
@@ -106,7 +122,9 @@ extension MovieListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieItemCell", for: indexPath) as? MovieTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier:  NSLocalizedString("cell_identifier", comment: ""),
+            for: indexPath) as? MovieTableViewCell else {
             return UITableViewCell()
         }
         
@@ -125,7 +143,7 @@ extension MovieListViewController: UITableViewDataSource {
     }
 }
 
-extension MovieListViewController: UITableViewDelegate {
+extension HomeMovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedMovie = isFiltering
         ? filteredMovies[indexPath.row]
@@ -134,23 +152,56 @@ extension MovieListViewController: UITableViewDelegate {
     }
 }
 
-extension MovieListViewController: UISearchResultsUpdating {
+extension HomeMovieListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text,
-              !query.isEmpty else {
+        guard let query = searchController.searchBar.text else { return }
+
+        if query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             filteredMovies = []
-            emptyStateView.isHidden = true
             tableView.reloadData()
+            
+            let isEmpty = viewModel.movies.isEmpty
+            stateManager.apply(state: isEmpty
+                               ? .empty(message: NSLocalizedString("failure_movie_not_found", comment: ""))
+                               : .content)
             return
         }
+
         filteredMovies = viewModel.movies.filter {
             $0.title?.lowercased().contains(query.lowercased()) ?? false
         }
+
         if filteredMovies.isEmpty {
-            stateManager.apply(state: .empty(message: "Não encontramos o seu filme!"))
+            stateManager.apply(state: .empty(
+                message: NSLocalizedString("failure_dont_found_movie", comment: "")))
         } else {
             stateManager.apply(state: .content)
         }
+
         tableView.reloadData()
     }
 }
+
+
+extension HomeMovieListViewController: UISearchControllerDelegate {
+    func willPresentSearchController(_ searchController: UISearchController) {
+        searchWasActive = true
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        if searchWasActive {
+            filteredMovies = []
+            emptyStateView.isHidden = true
+            tableView.reloadData()
+            
+            let isEmpty = viewModel.movies.isEmpty
+            stateManager.apply(state: isEmpty
+                               ? .empty(message: NSLocalizedString("failure_movie_not_found",
+                                                                   comment: ""))
+                               : .content)
+            searchWasActive = false
+        }
+    }
+}
+
+extension HomeMovieListViewController: UISearchBarDelegate {}

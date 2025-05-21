@@ -9,7 +9,6 @@ class APIService: CommonService, APIServiceProtocol {
     
     func fetchMovies(completion: @escaping(Result<[MovieAPIModel], Error>) -> Void) {
         guard let url = component?.url else {
-            print("URL inválida")
             return
         }
         
@@ -22,7 +21,9 @@ class APIService: CommonService, APIServiceProtocol {
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode),
                   let data = data else {
-                let statusError = NSError(domain: "Response inválido", code: 0)
+                let statusError = NSError(domain: NSLocalizedString("failure_invalid_response",
+                                                                    comment: ""),
+                                          code: 0)
                 completion(.failure(statusError))
                 return
             }
