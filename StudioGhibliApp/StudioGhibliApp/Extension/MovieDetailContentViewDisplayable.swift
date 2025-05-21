@@ -2,7 +2,9 @@ import Foundation
 
 extension MovieDetailContentView: ContentDisplayable {
     func showContent(model: Any?) {
-        guard let model = model as? MovieViewData else { return }
+        guard let model = model as? MovieViewData else {
+            return
+        }
         configure(with: model)
     }
     

@@ -11,7 +11,8 @@ class JSONCache {
             let data = try encoder.encode(items)
             try data.write(to: fileURL)
         } catch {
-            print("Erro ao salvar o JSON no cache")
+            print(NSLocalizedString("failure_error_save_cache",
+                                    comment: ""))
         }
     }
     
@@ -29,7 +30,8 @@ class JSONCache {
         do {
             try FileManager.default.removeItem(at: fileURL)
         } catch {
-            print("Erro ao limpar o cache")
+            print(NSLocalizedString("failure_error_clean_cache",
+                                    comment: ""))
         }
     }
 }

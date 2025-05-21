@@ -20,48 +20,7 @@ class MovieDetailViewController: UIViewController {
         setupRetryAction()
     }
     
-    // MARK: - public method
-    func configure(with model: MovieViewData?) {
-        if let model = model {
-            lastModel = model
-        }
-
-        stateManager.apply(state: .loading)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            if self.shouldFailFirstTime {
-                self.shouldFailFirstTime = false
-                self.stateManager.apply(state: .error(message: "Não foi possível exibir os dados do filme!"))
-                return
-            }
-
-            guard let model = self.lastModel else {
-                self.stateManager.apply(state: .error(message: "Filme inválido!"))
-                return
-            }
-            self.stateManager.apply(state: .content, model: model)
-        }
-    }
-
-    
     // MARK: - private methods
-    private func setupRetryAction() {
-        stateManager.onRetry = { [weak self] in
-            guard let self = self else { return }
-            self.configure(with: self.lastModel)
-        }
-    }
-    
-    private func setupHierarchy() {
-        
-        [scrollView, emptyStateView].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview($0)
-        }
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(contentView)
-    }
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -81,5 +40,36 @@ class MovieDetailViewController: UIViewController {
             emptyStateView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    private func setupHierarchy() {
+        
+        [scrollView, emptyStateView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(contentView)
+    }
+    
+    private func setupRetryAction() {
+        stateManager.onRetry = { [weak self] in
+            guard let self = self else { return }
+            self.configure(with: self.lastModel)
+        }
+    }
+    
+    // MARK: - public method
+    func configure(with model: MovieViewData?) {
+        if let model = model {
+            lastModel = model
+        }
 
+        stateManager.apply(state: .loading)
+
+        guard let model = self.lastModel else {
+            self.stateManager.apply(state: .error(message: NSLocalizedString("failure_invalid_movie", comment: "")))
+            return
+        }
+        self.stateManager.apply(state: .content, model: model)
+    }
 }

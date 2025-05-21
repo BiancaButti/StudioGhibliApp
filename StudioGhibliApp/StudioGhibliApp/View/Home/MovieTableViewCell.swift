@@ -14,6 +14,7 @@ class MovieTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - private methods
     private func setupConstraints() {
         movieItemView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(movieItemView)
@@ -36,6 +37,7 @@ class MovieTableViewCell: UITableViewCell {
         layer.masksToBounds = false
     }
     
+    // MARK: - public methods
     func configure(with model: MovieViewData) {
         movieItemView.configure(model)
     }

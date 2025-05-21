@@ -21,7 +21,8 @@ final class AppCoordinator: Coordinator {
     func showMovieDetailView(for movie: MovieViewData) {
         let detailViewController = MovieDetailViewController()
         detailViewController.configure(with: movie)
-        navigationController?.pushViewController(detailViewController, animated: true)
+        navigationController?.pushViewController(detailViewController,
+                                                 animated: true)
     }
     
     private func starMainFlow() {

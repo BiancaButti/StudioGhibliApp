@@ -65,7 +65,8 @@ final class MovieListViewModel {
                         self?.updateMovies(viewModels)
                         self?.cacheDetails(cacheAPIModels)
                     } else {
-                        self?.onError?("Ocorreu um erro ao carregar os filmes. Tente novamente.")
+                        self?.onError?(NSLocalizedString("failure_fetch_movies",
+                                                         comment: ""))
                     }
                 }
             }
@@ -79,7 +80,8 @@ final class MovieListViewModel {
     
     func loadMovie(withId id: String) {
         guard let model = detailCache.load(for: id) else {
-            onError?("Filme não encontrado!")
+            onError?(NSLocalizedString("failure_movie_not_found_fetch_movies",
+                                       comment: ""))
             return
         }
         selectedMovie = MovieViewData(from: model)

@@ -17,15 +17,7 @@ class MovieDetailCache {
         loadFromDisk()
     }
     
-    func save(_ movie: MovieAPIModel, for id: String) {
-        memoryCache[id] = movie
-        saveToDisk()
-    }
-    
-    func load(for id: String) -> MovieAPIModel? {
-        memoryCache[id]
-    }
-    
+    // MARK: - private methods
     private func saveToDisk() {
         guard let data = try? JSONEncoder().encode(memoryCache) else { return }
         try? data.write(to: fileURL)
@@ -38,5 +30,15 @@ class MovieDetailCache {
             return
         }
         memoryCache = savedCache
+    }
+    
+    // MARK: - publics methods
+    func save(_ movie: MovieAPIModel, for id: String) {
+        memoryCache[id] = movie
+        saveToDisk()
+    }
+    
+    func load(for id: String) -> MovieAPIModel? {
+        memoryCache[id]
     }
 }

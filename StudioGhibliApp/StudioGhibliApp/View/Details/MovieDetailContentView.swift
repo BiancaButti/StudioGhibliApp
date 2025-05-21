@@ -73,7 +73,7 @@ class MovieDetailContentView: UIView {
     
     private func setupErrorLabel() {
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
-        errorLabel.text = "Não foi possível exibir os dados!"
+        errorLabel.text = NSLocalizedString("failure_not_possible_exhibit_data", comment: "")
         errorLabel.textColor = .systemRed
         errorLabel.font = .boldSystemFont(ofSize: 20)
         errorLabel.textAlignment = .center

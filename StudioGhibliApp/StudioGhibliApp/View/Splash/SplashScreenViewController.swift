@@ -9,7 +9,10 @@ final class SplashScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.31, green: 0.64, blue: 0.85, alpha: 1.0)
+        view.backgroundColor = UIColor(red: 0.31,
+                                       green: 0.64,
+                                       blue: 0.85,
+                                       alpha: 1.0)
         setupConstraints()
         setupLayout()
         animateSplash()
@@ -39,7 +42,8 @@ final class SplashScreenViewController: UIViewController {
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.alpha = 0
         
-        titleLabel.text = "スタジオジブリ作品 \n STUDIO GHIBLI App"
+        titleLabel.text = NSLocalizedString("title_label_splash_screen",
+                                            comment: "")
         titleLabel.font = .boldSystemFont(ofSize: 24)
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white

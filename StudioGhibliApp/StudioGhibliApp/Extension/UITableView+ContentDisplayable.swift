@@ -5,9 +5,9 @@ extension UITableView: ContentDisplayable {
         self.reloadData()
     }
     
-    func setLoading() { }
-    
     func setHidden(_ hidden: Bool) {
         self.isHidden = hidden
     }
+    
+    func setLoading() { }
 }

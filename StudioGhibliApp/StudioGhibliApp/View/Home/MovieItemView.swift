@@ -14,23 +14,13 @@ class MovieItemView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupViews()
+        
         setupConstraints()
+        setupViews()
     }
     
     // MARK: - private methods
-    private func setupViews() {
-        posterImageView.contentMode = .scaleAspectFill
-        posterImageView.clipsToBounds = true
-        posterImageView.layer.cornerRadius = 4
-        
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        titleLabel.numberOfLines = 1
-        
-        yearLabel.font = UIFont.systemFont(ofSize: 12)
-        yearLabel.textColor = .darkGray
-        yearLabel.numberOfLines = 1
-        
+    private func setupConstraints() {
         posterImageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -38,9 +28,7 @@ class MovieItemView: UIView {
         addSubview(posterImageView)
         addSubview(titleLabel)
         addSubview(yearLabel)
-    }
-    
-    private func setupConstraints() {
+        
         NSLayoutConstraint.activate([
             posterImageView.topAnchor.constraint(equalTo: topAnchor),
             posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
@@ -58,8 +46,22 @@ class MovieItemView: UIView {
         ])
     }
     
+    private func setupViews() {
+        posterImageView.contentMode = .scaleAspectFill
+        posterImageView.clipsToBounds = true
+        posterImageView.layer.cornerRadius = 4
+        
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.numberOfLines = 1
+        
+        yearLabel.font = UIFont.systemFont(ofSize: 12)
+        yearLabel.textColor = .darkGray
+        yearLabel.numberOfLines = 1
+    }
+    
     // MARK: - public methods
     func configure(_ model: MovieViewData) {
+        // Skeleton before show data
         removeShimmer(from: posterImageView)
         removeShimmer(from: titleLabel)
         removeShimmer(from: yearLabel)
