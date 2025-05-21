@@ -43,16 +43,16 @@ class MovieItemView: UIView {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             posterImageView.topAnchor.constraint(equalTo: topAnchor),
-            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             posterImageView.heightAnchor.constraint(equalToConstant: 180),
             
             titleLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             
             yearLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            yearLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            yearLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             yearLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             yearLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])

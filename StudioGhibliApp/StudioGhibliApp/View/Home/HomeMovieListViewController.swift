@@ -1,6 +1,6 @@
 import UIKit
 
-class MovieListViewController: UIViewController {
+class HomeMovieListViewController: UIViewController {
         
     private let tableView = UITableView()
     private let searchController = UISearchController()
@@ -53,6 +53,9 @@ class MovieListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieItemCell")
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 220
     }
     
     private func bindViewModel() {
@@ -86,13 +89,17 @@ class MovieListViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Qual filme está procurando?"
+        searchController.searchBar.searchTextField.backgroundColor = .systemGray6
+        searchController.searchBar.searchTextField.clipsToBounds = true
+        searchController.searchBar.tintColor = .label
+        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
     }
 }
 
-extension MovieListViewController: UITableViewDataSource {
+extension HomeMovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch stateManager.currentState {
         case .loading:
@@ -125,7 +132,7 @@ extension MovieListViewController: UITableViewDataSource {
     }
 }
 
-extension MovieListViewController: UITableViewDelegate {
+extension HomeMovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedMovie = isFiltering
         ? filteredMovies[indexPath.row]
@@ -134,7 +141,7 @@ extension MovieListViewController: UITableViewDelegate {
     }
 }
 
-extension MovieListViewController: UISearchResultsUpdating {
+extension HomeMovieListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let query = searchController.searchBar.text,
               !query.isEmpty else {

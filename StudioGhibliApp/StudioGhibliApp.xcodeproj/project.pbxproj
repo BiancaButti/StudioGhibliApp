@@ -33,7 +33,7 @@
 		00D9ED7D2DD7D67E0071B9D6 /* MovieItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED7C2DD7D67E0071B9D6 /* MovieItemView.swift */; };
 		00D9ED7F2DD7E1980071B9D6 /* MovieViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED7E2DD7E1980071B9D6 /* MovieViewData.swift */; };
 		00D9ED812DD7E3D40071B9D6 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED802DD7E3D40071B9D6 /* MovieTableViewCell.swift */; };
-		00D9ED832DD8C9D80071B9D6 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED822DD8C9D80071B9D6 /* MovieListViewController.swift */; };
+		00D9ED832DD8C9D80071B9D6 /* HomeMovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED822DD8C9D80071B9D6 /* HomeMovieListViewController.swift */; };
 		00D9ED852DD8CD090071B9D6 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D9ED842DD8CD090071B9D6 /* MovieListViewModel.swift */; };
 		00EF067B2DDDDC0900ECFC77 /* MovieListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0046D8BC2DDDDA0A000BE6FB /* MovieListViewModelTests.swift */; };
 		00EF067E2DDDDDC500ECFC77 /* MockAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EF067D2DDDDDC500ECFC77 /* MockAPIService.swift */; };
@@ -83,7 +83,7 @@
 		00D9ED7C2DD7D67E0071B9D6 /* MovieItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieItemView.swift; sourceTree = "<group>"; };
 		00D9ED7E2DD7E1980071B9D6 /* MovieViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewData.swift; sourceTree = "<group>"; };
 		00D9ED802DD7E3D40071B9D6 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
-		00D9ED822DD8C9D80071B9D6 /* MovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
+		00D9ED822DD8C9D80071B9D6 /* HomeMovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMovieListViewController.swift; sourceTree = "<group>"; };
 		00D9ED842DD8CD090071B9D6 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
 		00EF06722DDDDBCC00ECFC77 /* StudioGhibliAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudioGhibliAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00EF067D2DDDDDC500ECFC77 /* MockAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIService.swift; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 			children = (
 				00D9ED7C2DD7D67E0071B9D6 /* MovieItemView.swift */,
 				00D9ED802DD7E3D40071B9D6 /* MovieTableViewCell.swift */,
-				00D9ED822DD8C9D80071B9D6 /* MovieListViewController.swift */,
+				00D9ED822DD8C9D80071B9D6 /* HomeMovieListViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -431,7 +431,7 @@
 			files = (
 				0002A1662DDC15570096AB57 /* APIServiceProtocol.swift in Sources */,
 				0002A16A2DDC16170096AB57 /* DetailCacheProtocol.swift in Sources */,
-				00D9ED832DD8C9D80071B9D6 /* MovieListViewController.swift in Sources */,
+				00D9ED832DD8C9D80071B9D6 /* HomeMovieListViewController.swift in Sources */,
 				00D9ED7D2DD7D67E0071B9D6 /* MovieItemView.swift in Sources */,
 				008147CF2DDA71D20036F671 /* Coordinator.swift in Sources */,
 				00AC567C2DDAB086005400C2 /* UIView+Extension.swift in Sources */,

@@ -25,7 +25,7 @@ final class AppCoordinator: Coordinator {
     }
     
     private func starMainFlow() {
-        let movieListViewController = MovieListViewController()
+        let movieListViewController = HomeMovieListViewController()
         movieListViewController.coordinator = self
         let navigationController = UINavigationController(rootViewController: movieListViewController)
         self.navigationController = navigationController
