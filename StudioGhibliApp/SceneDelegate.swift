@@ -3,21 +3,17 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var coordinator: MovieListCoordinator?
+    var coordinator: AppCoordinator?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        let navigationController = UINavigationController()
-        coordinator = MovieListCoordinator(navigationController: navigationController)
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+        coordinator = AppCoordinator(window: window)
         coordinator?.start()
-        
-        window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
     }
 
 

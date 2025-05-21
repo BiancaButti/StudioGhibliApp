@@ -13,7 +13,7 @@ class MovieListViewController: UIViewController {
     private let emptyStateView = EmptyStateView(message: "")
     private var stateManager: GenericStateViewManager<UITableView>!
     
-    weak var coordinator: MovieListCoordinator?
+    weak var coordinator: AppCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
