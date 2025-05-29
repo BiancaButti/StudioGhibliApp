@@ -1,0 +1,33 @@
+name: iOS CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2 # ou a versão que você usa localmente
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+          
+      - name: Run Fastlane Build
+        run: bundle exec fastlane build
+
+      - name: Run Fastlane Tests
+        run: bundle exec fastlane test
