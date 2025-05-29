@@ -1,0 +1,35 @@
+default_platform(:ios)
+
+platform :ios do
+
+  ######################################################
+  # 🚧 LANE: build
+  # Compila o app com o scheme StudioGhibliApp
+  ######################################################
+  desc "🚧 Compila o app e gera o .ipa"
+  lane :build do
+    build_app(
+      scheme: "StudioGhibliApp",
+      export_method: "development", # Futuramente: "app-store"
+      output_directory: "./fastlane/output"
+    )
+  end
+
+  ######################################################
+  # ✅ LANE: test
+  # Roda os testes unitários
+  ######################################################
+  desc "Run unit tests without code signing"
+  lane :test do
+    scan(
+      scheme: "StudioGhibliApp",
+      clean: true,
+      build_for_testing: true,
+      code_coverage: true,
+      disable_concurrent_testing: true
+    )
+  end
+
+  # ✈️ Futuramente: lane :beta => para TestFlight
+  # 🚀 Futuramente: lane :release => para App Store
+end
