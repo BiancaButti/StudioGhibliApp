@@ -2,7 +2,7 @@
 
 Aplicativo que faz a exibição de uma lista de filmes do Studio Ghibli e tela de detalhes de cada um dos filmes. 
 
-![Badge Finalizado](https://img.shields.io/static/v1?label=STATUS&message=FINALIZADO&color=green&style=for-the-badge)
+![Badge Em andamento](https://img.shields.io/static/v1?label=STATUS&message=EMANDAMENTO&color=orange&style=for-the-badge)
 
 
 
@@ -15,7 +15,8 @@ Aplicativo que faz a exibição de uma lista de filmes do Studio Ghibli e tela d
   
 ![swift](https://img.shields.io/badge/Swift-FA7343?style=for-the-badge&logo=swift&logoColor=white)
 
-![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![Fastlane](https://img.shields.io/badge/Fastlane-rocket-purple)
+
 
 
 
