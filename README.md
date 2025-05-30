@@ -2,8 +2,6 @@
 
 Aplicativo que faz a exibição de uma lista de filmes do Studio Ghibli e tela de detalhes de cada um dos filmes. 
 
-![Badge Em andamento](https://img.shields.io/static/v1?label=STATUS&message=EMANDAMENTO&color=orange&style=for-the-badge)
-
 
 
 
